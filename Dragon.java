@@ -37,14 +37,20 @@ class Dragon extends JComponent {
   *  @param g     The graphics object to draw into
   */
   private void drawDragon(int rank, Point p1, Point p3, Graphics g) {
-    int dx = p3.x-p1.x;
-    int dy = p3.y-p1.y;
-    Point p2 = new Point(p1.x+dx/2-dy/2,p1.y+dx/2+dy/2);
-    
-    // WRITE THE RECURSIVE CODE HERE:
-    g.drawLine(p1.x,p1.y,p2.x,p2.y);
-    g.drawLine(p3.x,p3.y,p2.x,p2.y);
-  }
+    if (rank <= 0) {
+        // Base case: Draw a line between p1 and p3
+        g.drawLine(p1.x, p1.y, p3.x, p3.y);
+    } else {
+        int dx = p3.x - p1.x;
+        int dy = p3.y - p1.y;
+        Point p2 = new Point(p1.x + dx / 2 - dy / 2, p1.y + dx / 2 + dy / 2);
+
+        // Recursive calls to draw smaller dragons
+        drawDragon(rank - 1, p1, p2, g); // First half of the dragon
+        drawDragon(rank - 1, p3, p2, g); // Second half of the dragon
+    }
+}
+
 
   ////////////////////////////////////////////
   //// Graphics code below -- do not edit ////
@@ -85,7 +91,7 @@ class Dragon extends JComponent {
     if (args.length > 0) {
       rank = Integer.valueOf(args[0]);
     } else {
-      rank = 5;
+      rank = 10;
     }
     createAndShowGUI(rank);
   }
