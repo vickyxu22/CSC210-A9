@@ -35,12 +35,19 @@ class Seahorse extends JComponent {
   *  @param g     The graphics object to draw into
   */
   private void drawSeahorse(int rank, Point p1, Point p4, Graphics g) {
-    // the other points of the seahorse:
-    int dx = (p4.x-p1.x);
-    int dy = (p4.y-p1.y);
+      if (rank <= 0) {
+          g.drawLine(p1.x, p1.y, p4.x, p4.y);
+      } else {
+          int dx = p4.x - p1.x;
+          int dy = p4.y - p1.y;
 
-    // WRITE THE RECURSIVE CODE HERE:
+          Point p2 = new Point(p1.x + dx / 4 - dy / 4, p1.y + dx / 4 + dy / 4);
+          Point p3 = new Point(p4.x - dx / 4 + dy / 4, p4.y - dx / 4 - dy / 4);
 
+          drawSeahorse(rank - 1, p1, p2, g);
+          drawSeahorse(rank - 1, p2, p3, g);
+          drawSeahorse(rank - 1, p3, p4, g);
+      }
   }
 
   ////////////////////////////////////////////
@@ -82,7 +89,7 @@ class Seahorse extends JComponent {
     if (args.length > 0) {
       rank = Integer.valueOf(args[0]);
     } else {
-      rank = 5;
+      rank = 10;
     }
     createAndShowGUI(rank);
   }

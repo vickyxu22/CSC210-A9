@@ -91,7 +91,7 @@ class Dragon extends JComponent {
     if (args.length > 0) {
       rank = Integer.valueOf(args[0]);
     } else {
-      rank = 10;
+      rank = 15;
     }
     createAndShowGUI(rank);
   }
